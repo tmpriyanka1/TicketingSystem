@@ -1,14 +1,16 @@
 package main.TicketingSystem.models;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Layout {
   private UUID layoutId;
-  private ArrayList<Seat> seats;
+  private List<Seat> seats;
 
-  public Layout(UUID layoutId) {
+  public Layout(List<Seat> seats) {
     this.layoutId = UUID.randomUUID();
+    this.seats = seats;
 
   }
 
@@ -16,7 +18,7 @@ public class Layout {
     return layoutId;
   }
 
-  public ArrayList<Seat> getSeats() {
+  public List<Seat> getSeats() {
     return seats;
   }
 

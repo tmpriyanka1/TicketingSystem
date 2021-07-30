@@ -1,19 +1,17 @@
 package main.TicketingSystem.models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 public class Booking {
-  private ArrayList<Ticket> tickets;
+  private List<Ticket> tickets;
   private UUID bookingId;
   private String userEmail;
   private String userPhoneNumber;
   private String cardNumber ;
-  private String holdersName;
-  private Date expiryDate;
+  private String cardHoldersName;
   private BookingStatus bookingStatus;
   private PaymentType paymentType;
+  private ShowDetails showDetails;
 
   /**
    * Constructor to construct the instance of Booking
@@ -21,12 +19,14 @@ public class Booking {
    *
    * @param userPhoneNumber
    */
-  public Booking(String userEmail, String userPhoneNumber)
+  public Booking(String userEmail, String userPhoneNumber, ShowDetails showDetails, List<Ticket> tickets)
   {
     this.bookingId = UUID.randomUUID();
     this.bookingStatus = BookingStatus.PENDING;
     this.userEmail = userEmail;
     this.userPhoneNumber = userPhoneNumber;
+    this.showDetails = showDetails;
+    this.tickets = tickets;
   }
 
   public UUID getBookingId()
@@ -61,45 +61,41 @@ public class Booking {
     this.cardNumber = cardNumber;
   }
 
-  public String getHoldersName()
-  {
-    return holdersName;
-  }
-  public void setHoldersNumber(String holdersName)
-  {
-    this.holdersName = holdersName;
+  public ShowDetails getShowDetails() {
+    return showDetails;
   }
 
-  public Date getExpiryDate()
-  {
-    return expiryDate;
-  }
-  public void setExpiryDate(Date expiryDate)
-  {
-    this.expiryDate = expiryDate;
-  }
-
-  public ArrayList<Ticket> getTickets() {
+  public List<Ticket> getTickets() {
     return tickets;
-  }
-
-  public void setTickets(ArrayList<Ticket> tickets) {
-    this.tickets = tickets;
   }
 
   public BookingStatus getBookingStatus() {
     return bookingStatus;
   }
 
-  public void setBookingStatus(BookingStatus bookingStatus) {
-    this.bookingStatus = bookingStatus;
-  }
-
   public PaymentType getPaymentType() {
     return paymentType;
   }
 
-  public void setPaymentType(PaymentType paymentType) {
-    this.paymentType = paymentType;
+
+  public String getCardHoldersName() {
+    return cardHoldersName;
+  }
+
+  public void confirmBooking(Scanner input) {
+
+    System.out.println("Enter care number");
+    cardNumber = input.next();
+
+    System.out.println("Card holder name");
+    cardHoldersName = input.next();
+
+    paymentType =PaymentType.CREDIT_CARD;
+
+    for(Ticket ticket: tickets) {
+      ticket.setTicketStatus(TicketStatus.CONFIRMED);
+    }
+
+    bookingStatus = BookingStatus.CONFIRMED;
   }
 }
