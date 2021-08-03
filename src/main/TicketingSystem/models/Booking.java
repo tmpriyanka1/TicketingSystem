@@ -3,7 +3,6 @@ package main.TicketingSystem.models;
 import java.util.*;
 
 public class Booking {
-  private List<Ticket> tickets;
   private UUID bookingId;
   private String userEmail;
   private String userPhoneNumber;
@@ -11,62 +10,36 @@ public class Booking {
   private String cardHoldersName;
   private BookingStatus bookingStatus;
   private PaymentType paymentType;
-  private ShowDetails showDetails;
+  private UUID showDetailsId;
 
-  /**
-   * Constructor to construct the instance of Booking
-   * @param userEmail
-   *
-   * @param userPhoneNumber
-   */
-  public Booking(String userEmail, String userPhoneNumber, ShowDetails showDetails, List<Ticket> tickets)
+
+  public Booking(UUID bookingId, String userEmail, String userPhoneNumber, UUID showDetailsId)
   {
-    this.bookingId = UUID.randomUUID();
+    this.bookingId = bookingId;
     this.bookingStatus = BookingStatus.PENDING;
     this.userEmail = userEmail;
     this.userPhoneNumber = userPhoneNumber;
-    this.showDetails = showDetails;
-    this.tickets = tickets;
+    this.showDetailsId = showDetailsId;
   }
 
-  public UUID getBookingId()
-  {
+  public UUID getBookingId() {
     return bookingId;
   }
 
-  public String getUserEmail()
-  {
+  public String getUserEmail() {
     return userEmail;
   }
-  public void setUserEmail(String userEmail)
-  {
-    this.userEmail = userEmail;
-  }
 
-  public String getUserPhoneNumber()
-  {
+  public String getUserPhoneNumber() {
     return userPhoneNumber;
   }
-  public void setUserPhoneNumber(String userPhoneNumber)
-  {
-    this.userPhoneNumber = userPhoneNumber;
-  }
 
-  public String getCardNumber()
-  {
+  public String getCardNumber() {
     return cardNumber;
   }
-  public void setCardNumber(String cardNumber)
-  {
-    this.cardNumber = cardNumber;
-  }
 
-  public ShowDetails getShowDetails() {
-    return showDetails;
-  }
-
-  public List<Ticket> getTickets() {
-    return tickets;
+  public String getCardHoldersName() {
+    return cardHoldersName;
   }
 
   public BookingStatus getBookingStatus() {
@@ -77,25 +50,23 @@ public class Booking {
     return paymentType;
   }
 
-
-  public String getCardHoldersName() {
-    return cardHoldersName;
+  public UUID getShowDetailsId() {
+    return showDetailsId;
   }
 
-  public void confirmBooking(Scanner input) {
+  public void setCardNumber(String cardNumber) {
+    this.cardNumber = cardNumber;
+  }
 
-    System.out.println("Enter care number");
-    cardNumber = input.next();
+  public void setCardHoldersName(String cardHoldersName) {
+    this.cardHoldersName = cardHoldersName;
+  }
 
-    System.out.println("Card holder name");
-    cardHoldersName = input.next();
+  public void setBookingStatus(BookingStatus bookingStatus) {
+    this.bookingStatus = bookingStatus;
+  }
 
-    paymentType =PaymentType.CREDIT_CARD;
-
-    for(Ticket ticket: tickets) {
-      ticket.setTicketStatus(TicketStatus.CONFIRMED);
-    }
-
-    bookingStatus = BookingStatus.CONFIRMED;
+  public void setPaymentType(PaymentType paymentType) {
+    this.paymentType = paymentType;
   }
 }
